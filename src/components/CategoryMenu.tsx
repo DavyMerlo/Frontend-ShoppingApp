@@ -26,7 +26,7 @@ const CategoryMenu = () => {
                                 color={"white"}
                                 variant="link"
                             >
-                                {category.name}
+                                {category.id}
                             </Button>
                         </HStack>
                     </ListItem>

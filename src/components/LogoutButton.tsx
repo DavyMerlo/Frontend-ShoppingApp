@@ -13,7 +13,7 @@ const LogoutButton: React.FC = () => {
         console.log("storage cleared");
     };
     return (
-        <Link to={"/"} onClick={handleLogout}>
+        <Link to={"/"} >
             <Flex cursor="pointer"
                   pt={3}
                   borderTopRadius={5}

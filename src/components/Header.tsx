@@ -34,7 +34,7 @@ const Header = () => {
                <VStack spacing={0} height={"160px"} width={"100%"}>
                    <SearchInput/>
                    <HStack pt={5} spacing={5} height={"70px"} width={"100%"} bg={"#f2f2f2"}>
-                      <NavLink to={"/"}>
+                      <NavLink to={"dashboard/home"}>
                           <Flex cursor="pointer"
                                 pt={3}
                                 justifyContent={"center"}
@@ -45,62 +45,62 @@ const Header = () => {
                                 color={"#f2f2f2"}
                                 _hover={{background: "#ff9900",
                                     color: "#000000"}}>
-                              Home
+                              Shop
                           </Flex>
                       </NavLink>
                        <NavLink to={"/"}>
                            <Flex cursor="pointer"
+                                pt={3}
+                                borderTopRadius={5}
+                                justifyContent={"center"}
+                                height={"50px"}
+                                 color={"#f2f2f2"}
+                                 bg={"#232f3e"}
+                                width={"150px"}
+                                _hover={{background: "#ff9900",
+                                    color: "#000000"}}>
+                                Cart
+                           </Flex>
+                       </NavLink>
+                       <NavLink to={"/"}>
+                           <Flex cursor="pointer"
+                                pt={3}
+                                borderTopRadius={5}
+                                justifyContent={"center"}
+                                height={"50px"}
+                                 color={"#f2f2f2"}
+                                 bg={"#232f3e"}
+                                width={"150px"}
+                                _hover={{background: "#ff9900",
+                                    color: "#000000"}}>
+                                Checkout
+                           </Flex>
+                       </NavLink>
+                       <NavLink to={"dashboard/profile"}>
+                           <Flex cursor="pointer"
+                                pt={3}
+                                borderTopRadius={5}
+                                justifyContent={"center"}
+                                height={"50px"}
+                                 color={"#f2f2f2"}
+                                 bg={"#232f3e"}
+                                width={"150px"}
+                                _hover={{background: "#ff9900",
+                                    color: "#000000"}}>
+                                Profile
+                           </Flex>
+                       </NavLink>
+                       <NavLink to={"/"}>
+                           <Flex cursor="pointer"
                                  pt={3}
-                                borderTopRadius={5}
-                                justifyContent={"center"}
-                                height={"50px"}
+                                 borderTopRadius={5}
+                                 justifyContent={"center"}
+                                 height={"50px"}
                                  color={"#f2f2f2"}
                                  bg={"#232f3e"}
-                                width={"150px"}
-                                _hover={{background: "#ff9900",
-                                    color: "#000000"}}>
-                               Shop
-                           </Flex>
-                       </NavLink>
-                       <NavLink to={"/"}>
-                           <Flex cursor="pointer"
-                                pt={3}
-                                borderTopRadius={5}
-                                justifyContent={"center"}
-                                height={"50px"}
-                                 color={"#f2f2f2"}
-                                 bg={"#232f3e"}
-                                width={"150px"}
-                                _hover={{background: "#ff9900",
-                                    color: "#000000"}}>
-                               Cart
-                           </Flex>
-                       </NavLink>
-                       <NavLink to={"/"}>
-                           <Flex cursor="pointer"
-                                pt={3}
-                                borderTopRadius={5}
-                                justifyContent={"center"}
-                                height={"50px"}
-                                 color={"#f2f2f2"}
-                                 bg={"#232f3e"}
-                                width={"150px"}
-                                _hover={{background: "#ff9900",
-                                    color: "#000000"}}>
-                               Checkout
-                           </Flex>
-                       </NavLink>
-                       <NavLink to={"/"}>
-                           <Flex cursor="pointer"
-                                pt={3}
-                                borderTopRadius={5}
-                                justifyContent={"center"}
-                                height={"50px"}
-                                 color={"#f2f2f2"}
-                                 bg={"#232f3e"}
-                                width={"150px"}
-                                _hover={{background: "#ff9900",
-                                    color: "#000000"}}>
+                                 width={"150px"}
+                                 _hover={{background: "#ff9900",
+                                     color: "#000000"}}>
                                Contact
                            </Flex>
                        </NavLink>
@@ -147,7 +147,7 @@ const Header = () => {
                                  width={"150px"}
                                  _hover={{background: "#ff9900",
                                      color: "#000000"}}>
-                               My Profile
+                               Login
                            </Flex>
                        </NavLink>
                        <LogoutButton/>

@@ -1,39 +1,35 @@
-import {
-    Box,
-    Button, Collapse, Flex,
-    Heading,
-    Stack,
-    Text,
-} from '@chakra-ui/react';
-import React from 'react';
-import useCategories from "../hooks/useCategories";
-import useProductQueryStore from "../services/store";
-import useSubCategories from "../hooks/useSubCategories";
-import SubCategory from "../entities/SubCategory";
-import Category from "../entities/Category";
+import {Box, Collapse, Flex, Stack, Text} from "@chakra-ui/react";
+import React, {useState} from "react";
 
+interface Options {
+    name: string;
+    subOptions: string[];
+}
 
-const Sidebar = () => {
+const ProfileSideBar = () => {
 
-    const categories = useCategories();
-    const subCategories = useSubCategories();
+    const[selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [showSubOptions, setShowSubOptions] = useState(false);
 
-    const selectedCategoryId =
-        useProductQueryStore(s => s.productQuery.categoryId);
+    const options: Options[] = [
+        {
+            name:"Overview Customer",
+            subOptions: ["Account Information", "Returns and repairs", "Information en preferences"]
+        }
+    ]
 
-    const setSelectedCategoryId =
-        useProductQueryStore(s => s.setCategoryId);
-    const setSelectedSubCategoryId=
-        useProductQueryStore(s => s.setSubCategoryId);
-
-    const handleCategoryClick = (categoryId: number, subCategoryId: any) => {
-        setSelectedCategoryId(categoryId);
-        setSelectedSubCategoryId(subCategoryId);
+    const handleOptionClick = (optionName: string) => {
+        if (selectedOption === optionName) {
+            setShowSubOptions(!showSubOptions);
+        } else {
+            setSelectedOption(optionName);
+            setShowSubOptions(true);
+        }
     };
 
-    const handleSubCategoryClick = (subCategoryId: number) => {
-        setSelectedSubCategoryId(subCategoryId);
-    }
+    const handleSubOptionClick = (subOptionName: string) => {
+        console.log(subOptionName);
+    };
 
     return (
         <Flex
@@ -47,8 +43,8 @@ const Sidebar = () => {
                     <Stack
                         marginTop={0}
                         spacing="">
-                        {categories.data?.result.categories.map((category: Category) => (
-                            <Box key={category.id}>
+                        {options.map((option, index) => (
+                            <Box key={index}>
                                 <Box bg={"#232f3e"}
                                      padding={"5"}
                                      height="45px"
@@ -58,28 +54,32 @@ const Sidebar = () => {
                                         cursor={"pointer"}
                                         fontSize={"18px"}
                                         variant="ghost"
-                                        onClick={() => handleCategoryClick(category.id, null)}
+                                        onClick={(e) =>
+                                            handleOptionClick(option.name)}
                                         w="100%"
                                         color="#f2f2f2"
                                         textAlign={"left"}
-                                        fontWeight={category.id === selectedCategoryId ? "bold" : "normal"}
+                                        fontWeight={option.name === selectedOption ? "bold" : "normal"}
                                     >
-                                        {category.name}
+                                        {option.name}
                                     </Text>
                                 </Box>
                                 <Collapse
-                                    in={category.id === selectedCategoryId}>
+                                    in={option.name === selectedOption}>
                                     <Stack
                                         ml="0" bg={"#ff9900"}>
                                         <Box ml="5" >
-                                            {subCategories.data?.result.subcategories.map((subcategory : SubCategory) => (
+                                            {options
+                                                .find(option => option.name === selectedOption)
+                                                ?.subOptions.map((subOption, index) => (
                                                 <Text
                                                     color={"#000000"}
                                                     paddingTop={2}
                                                     height={"45px"}
                                                     fontSize="18px"
-                                                    onClick={() => handleSubCategoryClick(subcategory.id)}
-                                                    key={subcategory.id} cursor={"pointer"}>{subcategory.name}
+                                                    onClick={(e) =>
+                                                        handleSubOptionClick(subOption)}
+                                                    key={index} cursor={"pointer"}>{subOption}
                                                 </Text>
                                             ))}
                                         </Box>
@@ -94,4 +94,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default ProfileSideBar;

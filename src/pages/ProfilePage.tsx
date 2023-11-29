@@ -1,12 +1,9 @@
 import React from "react";
 import ProfileGrid from "../components/ProfileGrid";
 import {GridItem} from "@chakra-ui/react";
-import Sidebar from "../components/SideBar";
-import ProductGrid from "../components/ProductGrid";
 import ProfileSideBar from "../components/ProfileSideBar";
 
 const ProfilePage = () => {
-
     return (
         <>
             <>

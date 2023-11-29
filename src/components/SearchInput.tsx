@@ -1,10 +1,7 @@
-import {Form, useNavigate} from "react-router-dom";
+import {Form} from "react-router-dom";
 import {HStack, Input, InputGroup, InputLeftElement, Spacer} from "@chakra-ui/react";
 import {useRef} from "react";
-import useProductQueryStore from "../services/store";
-import useCategories from "../hooks/useCategories";
-import useSubCategories from "../hooks/useSubCategories";
-import useProducts from "../hooks/useProducts";
+import {useProductQueryStore} from "../services/store";
 
 
 const SearchInput = () => {

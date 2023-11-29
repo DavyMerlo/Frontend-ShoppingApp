@@ -1,5 +1,4 @@
 import axios, {AxiosRequestConfig} from "axios";
-import ProductResponse from "../responses/ProductResponse";
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8888/api/v1",
@@ -42,6 +41,12 @@ class ApiClient<T> {
         return await axiosInstance
             .get<T>(this.endPoint, config)
             .then(res => res.data);
+    };
+
+    getById = async (id:any, extraPath:string | null): Promise<T> => {
+        return axiosInstance
+            .get<T>(this.endPoint + `/${id}/${extraPath}`)
+            .then(res => res.data)
     };
 }
 

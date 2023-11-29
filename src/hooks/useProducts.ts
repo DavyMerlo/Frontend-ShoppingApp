@@ -1,6 +1,6 @@
 import ApiClient from "../services/api-client";
 import ProductResponse from "../responses/ProductResponse";
-import useProductQueryStore from "../services/store";
+import {useProductQueryStore} from "../services/store";
 import {useInfiniteQuery} from "@tanstack/react-query";
 import ms from "ms";
 

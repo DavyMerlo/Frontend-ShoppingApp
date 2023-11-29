@@ -3,9 +3,22 @@ import {Link, NavLink} from "react-router-dom";
 import React from "react";
 import SearchInput from "./SearchInput";
 import LogoutButton from "./LogoutButton";
+import {useMenuItemStore} from "../services/store";
+import {stat} from "fs";
+import storage from "../hooks/useStoredState";
+import User from "../entities/User";
 
 
 const Header = () => {
+
+    const setTitle = useMenuItemStore(state => state.setSideBarTitle);
+    const title = useMenuItemStore(state => state.sideBarTitle);
+    const user = storage.get<User>("user");
+
+    const handleClick = (newTitle : string) : void => {
+        setTitle(newTitle);
+    }
+
     return (
        <Flex>
            <HStack
@@ -26,7 +39,7 @@ const Header = () => {
                    <HStack  pt={5} spacing={5} bg={"#f2f2f2"} height={"70px"} width={"400px"}>
                       <Box borderTopRadius={5} justifyContent={"center"} pl={5} pt={3} ml={5} height={"50px"}  bg={"#232f3e"} width={"350px"}>
                           <Heading fontSize={"20px"} color={"#f2f2f2"}>
-                              Categories
+                              {title}
                           </Heading>
                       </Box>
                    </HStack>
@@ -34,7 +47,23 @@ const Header = () => {
                <VStack spacing={0} height={"160px"} width={"100%"}>
                    <SearchInput/>
                    <HStack pt={5} spacing={5} height={"70px"} width={"100%"} bg={"#f2f2f2"}>
-                      <NavLink to={"dashboard/home"}>
+                       <NavLink to={""}
+                                onClick={() => handleClick("Home")}>
+                           <Flex cursor="pointer"
+                                 pt={3}
+                                 borderTopRadius={5}
+                                 justifyContent={"center"}
+                                 height={"50px"}
+                                 color={"#f2f2f2"}
+                                 bg={"#232f3e"}
+                                 width={"150px"}
+                                 _hover={{background: "#ff9900",
+                                     color: "#000000"}}>
+                               Home
+                           </Flex>
+                       </NavLink>
+                      <NavLink to={"dashboard/home"}
+                               onClick={() => handleClick("Categories")}>
                           <Flex cursor="pointer"
                                 pt={3}
                                 justifyContent={"center"}
@@ -48,7 +77,8 @@ const Header = () => {
                               Shop
                           </Flex>
                       </NavLink>
-                       <NavLink to={"/"}>
+                       <NavLink to={""}
+                                onClick={() => handleClick("Cart")}>
                            <Flex cursor="pointer"
                                 pt={3}
                                 borderTopRadius={5}
@@ -62,7 +92,8 @@ const Header = () => {
                                 Cart
                            </Flex>
                        </NavLink>
-                       <NavLink to={"/"}>
+                       <NavLink to={""}
+                                onClick={() => handleClick("Check Out")}>
                            <Flex cursor="pointer"
                                 pt={3}
                                 borderTopRadius={5}
@@ -73,24 +104,11 @@ const Header = () => {
                                 width={"150px"}
                                 _hover={{background: "#ff9900",
                                     color: "#000000"}}>
-                                Checkout
+                                Check Out
                            </Flex>
                        </NavLink>
-                       <NavLink to={"dashboard/profile"}>
-                           <Flex cursor="pointer"
-                                pt={3}
-                                borderTopRadius={5}
-                                justifyContent={"center"}
-                                height={"50px"}
-                                 color={"#f2f2f2"}
-                                 bg={"#232f3e"}
-                                width={"150px"}
-                                _hover={{background: "#ff9900",
-                                    color: "#000000"}}>
-                                Profile
-                           </Flex>
-                       </NavLink>
-                       <NavLink to={"/"}>
+                       <NavLink to={""}
+                                onClick={() => handleClick("Contact")}>
                            <Flex cursor="pointer"
                                  pt={3}
                                  borderTopRadius={5}
@@ -136,7 +154,8 @@ const Header = () => {
                        </NavLink>
                    </HStack>
                    <HStack justifyContent={"end"} pr={5} pt={5} spacing={5} height={"70px"} width={"100%"} bg={"#f2f2f2"}>
-                       <NavLink to={"/"}>
+                       <NavLink to={"dashboard/profile"}
+                                onClick={() => handleClick("Overview " + user.firstName)}>
                            <Flex cursor="pointer"
                                  pt={3}
                                  borderTopRadius={5}
@@ -147,7 +166,7 @@ const Header = () => {
                                  width={"150px"}
                                  _hover={{background: "#ff9900",
                                      color: "#000000"}}>
-                               Login
+                               Profile
                            </Flex>
                        </NavLink>
                        <LogoutButton/>

@@ -1,5 +1,8 @@
 import {Box, Collapse, Flex, Stack, Text} from "@chakra-ui/react";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import storage from "../hooks/useStoredState";
+import User from "../entities/User";
+import {useMenuItemStore} from "../services/store";
 
 interface Options {
     name: string;
@@ -10,14 +13,44 @@ const ProfileSideBar = () => {
 
     const[selectedOption, setSelectedOption] = useState<string | null>(null);
     const [showSubOptions, setShowSubOptions] = useState(false);
+    const setSubOption = useMenuItemStore(state => state.setSubOption);
 
     const options: Options[] = [
         {
-            name:"Overview Customer",
-            subOptions: ["Account Information", "Returns and repairs", "Information en preferences"]
-        }
+            name: "Account Information",
+            subOptions: ["Data en preferences", "Gift Cards"]
+        },
+        {
+            name: "Order History",
+            subOptions: ["Orders Placed", "Canceled Orders"]
+        },
+        {
+            name: "Returns",
+            subOptions: ["Register a return ", "Registered returns"]
+        },
     ]
 
+
+
+    // const handleSideBarUpdate = (newSideBarTitle: string) => {
+    //     if (sideBarTitle !== newSideBarTitle ) {
+    //         setSideBarTitle(newSideBarTitle);
+    //     }
+    // };
+    // const newSideBarTitle = "Overview of " + user?.firstName;
+    // handleSideBarUpdate(newSideBarTitle);
+    //
+    //
+    // const loggedInUser = storage.get<User>('user')
+    // const handleUserUpdate = (newUser: User) => {
+    //     if (loggedInUser !== newUser ) {
+    //         setUser(loggedInUser);
+    //     }
+    // };
+    // handleUserUpdate(loggedInUser);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const handleOptionClick = (optionName: string) => {
         if (selectedOption === optionName) {
             setShowSubOptions(!showSubOptions);
@@ -28,7 +61,7 @@ const ProfileSideBar = () => {
     };
 
     const handleSubOptionClick = (subOptionName: string) => {
-        console.log(subOptionName);
+        setSubOption(subOptionName);
     };
 
     return (

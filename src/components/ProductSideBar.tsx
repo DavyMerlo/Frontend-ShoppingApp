@@ -1,30 +1,41 @@
-import {
-    Box,
-    Button, Collapse, Flex,
-    Heading,
-    Stack,
-    Text,
-} from '@chakra-ui/react';
+import {Box,Collapse, Flex, Stack, Text,} from '@chakra-ui/react';
 import React from 'react';
 import useCategories from "../hooks/useCategories";
-import useProductQueryStore from "../services/store";
+import {useMenuItemStore, useProductQueryStore} from "../services/store";
 import useSubCategories from "../hooks/useSubCategories";
 import SubCategory from "../entities/SubCategory";
 import Category from "../entities/Category";
 
 
-const Sidebar = () => {
+const ProductSidebar = () => {
 
     const categories = useCategories();
     const subCategories = useSubCategories();
 
     const selectedCategoryId =
         useProductQueryStore(s => s.productQuery.categoryId);
-
     const setSelectedCategoryId =
         useProductQueryStore(s => s.setCategoryId);
     const setSelectedSubCategoryId=
         useProductQueryStore(s => s.setSubCategoryId);
+
+
+    // const {setSideBarTitle, sideBarTitle} = useMenuItemStore();
+    // const handleStateUpdate = (newValue: string) => {
+    //     if (sideBarTitle !== newValue) {
+    //         setSideBarTitle(newValue);
+    //     }
+    // };
+    // handleStateUpdate(title);
+
+    // const setData = useMenuItemStore(state => state.setSideBarTitle);
+    // const updateData = () => {
+    //     setData("Categories");
+    // }
+    //
+    // updateData();
+
+
 
     const handleCategoryClick = (categoryId: number, subCategoryId: any) => {
         setSelectedCategoryId(categoryId);
@@ -94,4 +105,4 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
+export default ProductSidebar;

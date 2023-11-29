@@ -3,6 +3,7 @@ import LoginRequest from "../requests/LoginRequest";
 import {useMutation} from "@tanstack/react-query";
 import LoginResponse from "../responses/LoginResponse";
 import ErrorResponse from "../responses/ErrorResponse";
+import storage from "./useStoredState";
 
 const apiClient = new ApiClient('/auth/authenticate');
 
@@ -12,8 +13,8 @@ const useAuth = (request: LoginRequest) => useMutation({
     onSuccess: ((response : LoginResponse | any)=> {
         const accessToken = response.result.accessToken;
         const user = response.result.user;
-        localStorage.setItem('token', JSON.stringify(accessToken));
-        localStorage.setItem('user', JSON.stringify(user));
+        storage.set("user", user);
+        storage.set("token", accessToken);
     }),
     onError: ((error : ErrorResponse | any) => {
         console.log(error.response?.data.status);

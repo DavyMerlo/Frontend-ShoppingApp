@@ -1,7 +1,7 @@
 import {Box,Collapse, Flex, Stack, Text,} from '@chakra-ui/react';
 import React from 'react';
 import useCategories from "../hooks/useCategories";
-import {useMenuItemStore, useProductQueryStore} from "../services/store";
+import {useProductQueryStore} from "../services/store";
 import useSubCategories from "../hooks/useSubCategories";
 import SubCategory from "../entities/SubCategory";
 import Category from "../entities/Category";
@@ -18,24 +18,6 @@ const ProductSidebar = () => {
         useProductQueryStore(s => s.setCategoryId);
     const setSelectedSubCategoryId=
         useProductQueryStore(s => s.setSubCategoryId);
-
-
-    // const {setSideBarTitle, sideBarTitle} = useMenuItemStore();
-    // const handleStateUpdate = (newValue: string) => {
-    //     if (sideBarTitle !== newValue) {
-    //         setSideBarTitle(newValue);
-    //     }
-    // };
-    // handleStateUpdate(title);
-
-    // const setData = useMenuItemStore(state => state.setSideBarTitle);
-    // const updateData = () => {
-    //     setData("Categories");
-    // }
-    //
-    // updateData();
-
-
 
     const handleCategoryClick = (categoryId: number, subCategoryId: any) => {
         setSelectedCategoryId(categoryId);

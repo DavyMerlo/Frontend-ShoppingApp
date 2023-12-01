@@ -1,12 +1,12 @@
 import {useState} from "react";
-import {Button, Text} from "@chakra-ui/react";
+import {Text} from "@chakra-ui/react";
 
 interface Props {
     children: string;
 }
 
 const CroppedText = ({children}: Props) => {
-    const [expanded, setExpanded] = useState(false);
+    const [expanded] = useState(false);
     const limit = 140;
 
     if(!children) return null;

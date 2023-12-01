@@ -1,9 +1,10 @@
-import React from "react";
 import {GridItem} from "@chakra-ui/react";
 import ProfileSideBar from "../components/ProfileSideBar";
-import {Outlet} from "react-router-dom";
+import React from "react";
+import PasswordBox from "../components/PasswordBox";
 
-const ProfilePage = () => {
+
+const PasswordPage = () => {
     return (
         <>
             <>
@@ -11,11 +12,11 @@ const ProfilePage = () => {
                     <ProfileSideBar/>
                 </GridItem>
                 <GridItem paddingTop={0} paddingRight={5} area={'main'}>
-                    <Outlet/>
+                    <PasswordBox/>
                 </GridItem>
             </>
         </>
     )
 }
 
-export default ProfilePage;
+export default PasswordPage;

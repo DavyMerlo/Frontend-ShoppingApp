@@ -19,13 +19,9 @@ const Layout = () => {
                 <GridItem area={'header'}>
                     <Header/>
                 </GridItem>
-                {/*<GridItem paddingLeft={0} bg={"#f2f2f2"} area={'side'}>*/}
-                {/*    <Sidebar/>*/}
-                {/*</GridItem>*/}
-                {/*<GridItem paddingTop={0} paddingRight={5} area={'main'}>*/}
-                {/*    <Outlet/>*/}
-                {/*</GridItem>*/}
-                <Outlet/>
+                <>
+                    <Outlet/>
+                </>
             </Grid>
         </>
     )

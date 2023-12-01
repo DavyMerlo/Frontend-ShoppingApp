@@ -3,7 +3,6 @@ import React from "react";
 import {Box, Heading, Text} from "@chakra-ui/react";
 import Header from "../components/Header";
 
-
 const ErrorPage = () => {
     const error = useRouteError();
     return (

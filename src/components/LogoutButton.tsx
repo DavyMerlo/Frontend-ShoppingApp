@@ -1,10 +1,14 @@
 import React from 'react';
 import useLogout from "../hooks/useLogOut";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import storage from "../hooks/useStoredState";
 import {Flex} from "@chakra-ui/react";
+import {useAuthStore} from "../services/store";
 
 const LogoutButton: React.FC = () => {
+
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
     const { mutate: logout } = useLogout();
     const handleLogout = async () => {
         logout();
@@ -24,7 +28,7 @@ const LogoutButton: React.FC = () => {
                   width={"150px"}
                   _hover={{background: "#ff9900",
                       color: "#000000"}}>
-                Logout
+                {isLoggedIn ? "Logout" : "Register"}
             </Flex>
         </Link>
     )

@@ -4,7 +4,7 @@ import useProducts from "../hooks/useProducts";
 import ProductCardContainer from "./ProductCardContainer";
 import ProductCard from "./ProductCard";
 
-const ProductGrid = () => {
+const ProductBox = () => {
 
     const { data,
         isLoading,
@@ -39,4 +39,4 @@ const ProductGrid = () => {
     )
 }
 
-export default ProductGrid;
+export default ProductBox;

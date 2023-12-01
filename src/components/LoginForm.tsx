@@ -14,6 +14,7 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react'
 import {Form, useNavigate} from "react-router-dom";
+import {useAuthStore} from "../services/store";
 
 const LoginForm: React.FC = () => {
     const [formData, setFormData] =
@@ -23,11 +24,15 @@ const LoginForm: React.FC = () => {
     })
     const mutation = useAuth(formData);
     const navigate = useNavigate();
+
+    const login = useAuthStore((state) => state.login);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await mutation.mutateAsync();
-            navigate('/dashboard');
+            login();
+            navigate('/shop');
         } catch (error) {
             console.error('Login failed:', error);
         }

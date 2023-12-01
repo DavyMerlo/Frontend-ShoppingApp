@@ -1,7 +1,5 @@
 import {create} from "zustand";
 import User from "../entities/User";
-import storage from "../hooks/useStoredState";
-import UseStoredState from "../hooks/useStoredState";
 
 interface ProductQuery {
     categoryId?: number | null;
@@ -25,8 +23,10 @@ export const useProductQueryStore = create<ProductQueryStore>(set => ({
 
 type menuItemStore = {
     user: User | null;
+    option: string;
     subOption: string;
     sideBarTitle: string;
+    setOption: (newItem: string) => void;
     setSubOption: (newItem: string) => void;
     setSideBarTitle: (newItem: string) => void;
     setUser:(newUser: User | null) => void;
@@ -34,9 +34,23 @@ type menuItemStore = {
 
 export const useMenuItemStore = create<menuItemStore>(set => ({
     user: null,
+    option: "Account Information",
     subOption: "",
     sideBarTitle: "Categories",
+    setOption: newItem => set(() => ({option: newItem})),
     setSubOption: newItem => set(() => ({subOption: newItem})),
     setSideBarTitle: newItem => set(() => ({sideBarTitle: newItem})),
     setUser: newUser => set(() => ({user: newUser}))
+}));
+
+interface AuthState {
+    isLoggedIn: boolean;
+    login: () => void;
+    logout: () => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
+    isLoggedIn: false,
+    login: () => set({ isLoggedIn: true }),
+    logout: () => set({ isLoggedIn: false }),
 }));

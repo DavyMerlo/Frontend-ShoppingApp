@@ -1,8 +1,7 @@
 import {Box, Collapse, Flex, Stack, Text} from "@chakra-ui/react";
-import React, {useEffect, useState} from "react";
-import storage from "../hooks/useStoredState";
-import User from "../entities/User";
+import React, {useState} from "react";
 import {useMenuItemStore} from "../services/store";
+import {Link, useNavigate} from "react-router-dom";
 
 interface Options {
     name: string;
@@ -14,11 +13,13 @@ const ProfileSideBar = () => {
     const[selectedOption, setSelectedOption] = useState<string | null>(null);
     const [showSubOptions, setShowSubOptions] = useState(false);
     const setSubOption = useMenuItemStore(state => state.setSubOption);
+    const setOption = useMenuItemStore(state => state.setOption);
+    const nav = useNavigate();
 
     const options: Options[] = [
         {
             name: "Account Information",
-            subOptions: ["Data en preferences", "Gift Cards"]
+            subOptions: ["Change password", "Update Personal Information", "Gift Cards"]
         },
         {
             name: "Order History",
@@ -30,33 +31,14 @@ const ProfileSideBar = () => {
         },
     ]
 
-
-
-    // const handleSideBarUpdate = (newSideBarTitle: string) => {
-    //     if (sideBarTitle !== newSideBarTitle ) {
-    //         setSideBarTitle(newSideBarTitle);
-    //     }
-    // };
-    // const newSideBarTitle = "Overview of " + user?.firstName;
-    // handleSideBarUpdate(newSideBarTitle);
-    //
-    //
-    // const loggedInUser = storage.get<User>('user')
-    // const handleUserUpdate = (newUser: User) => {
-    //     if (loggedInUser !== newUser ) {
-    //         setUser(loggedInUser);
-    //     }
-    // };
-    // handleUserUpdate(loggedInUser);
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const handleOptionClick = (optionName: string) => {
         if (selectedOption === optionName) {
             setShowSubOptions(!showSubOptions);
+            nav("overview")
         } else {
             setSelectedOption(optionName);
             setShowSubOptions(true);
+            setOption(optionName);
         }
     };
 
@@ -105,15 +87,17 @@ const ProfileSideBar = () => {
                                             {options
                                                 .find(option => option.name === selectedOption)
                                                 ?.subOptions.map((subOption, index) => (
-                                                <Text
-                                                    color={"#000000"}
-                                                    paddingTop={2}
-                                                    height={"45px"}
-                                                    fontSize="18px"
-                                                    onClick={(e) =>
-                                                        handleSubOptionClick(subOption)}
-                                                    key={index} cursor={"pointer"}>{subOption}
-                                                </Text>
+                                               <Link key={index} to={"password"}>
+                                                   <Text
+                                                       color={"#000000"}
+                                                       paddingTop={2}
+                                                       height={"45px"}
+                                                       fontSize="18px"
+                                                       onClick={(e) =>
+                                                           handleSubOptionClick(subOption)}
+                                                       key={index} cursor={"pointer"}>{subOption}
+                                                   </Text>
+                                               </Link>
                                             ))}
                                         </Box>
                                     </Stack>

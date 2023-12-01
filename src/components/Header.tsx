@@ -1,18 +1,17 @@
-import {Box, Button, Flex, Heading, HStack, Spacer, Stack, Text, VStack} from "@chakra-ui/react";
-import {Link, NavLink} from "react-router-dom";
+import {Box, Flex, Heading, HStack,Text, VStack} from "@chakra-ui/react";
+import {NavLink} from "react-router-dom";
 import React from "react";
 import SearchInput from "./SearchInput";
 import LogoutButton from "./LogoutButton";
-import {useMenuItemStore} from "../services/store";
-import {stat} from "fs";
+import {useAuthStore, useMenuItemStore} from "../services/store";
 import storage from "../hooks/useStoredState";
 import User from "../entities/User";
-
 
 const Header = () => {
 
     const setTitle = useMenuItemStore(state => state.setSideBarTitle);
     const title = useMenuItemStore(state => state.sideBarTitle);
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
     const user = storage.get<User>("user");
 
     const handleClick = (newTitle : string) : void => {
@@ -62,7 +61,7 @@ const Header = () => {
                                Home
                            </Flex>
                        </NavLink>
-                      <NavLink to={"dashboard/home"}
+                      <NavLink to={"/shop"}
                                onClick={() => handleClick("Categories")}>
                           <Flex cursor="pointer"
                                 pt={3}
@@ -154,7 +153,7 @@ const Header = () => {
                        </NavLink>
                    </HStack>
                    <HStack justifyContent={"end"} pr={5} pt={5} spacing={5} height={"70px"} width={"100%"} bg={"#f2f2f2"}>
-                       <NavLink to={"dashboard/profile"}
+                       <NavLink to={"login"}
                                 onClick={() => handleClick("Overview " + user.firstName)}>
                            <Flex cursor="pointer"
                                  pt={3}
@@ -166,7 +165,7 @@ const Header = () => {
                                  width={"150px"}
                                  _hover={{background: "#ff9900",
                                      color: "#000000"}}>
-                               Profile
+                               {isLoggedIn ? "Profile" : "Login"}
                            </Flex>
                        </NavLink>
                        <LogoutButton/>

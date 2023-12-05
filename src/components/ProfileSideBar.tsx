@@ -19,7 +19,7 @@ const ProfileSideBar = () => {
     const options: Options[] = [
         {
             name: "Account Information",
-            subOptions: ["Change password", "Update Personal Information", "Gift Cards"]
+            subOptions: ["Change password", "Update Account", "E-shopping Card", "Gift Cards"]
         },
         {
             name: "Order History",
@@ -34,11 +34,12 @@ const ProfileSideBar = () => {
     const handleOptionClick = (optionName: string) => {
         if (selectedOption === optionName) {
             setShowSubOptions(!showSubOptions);
-            nav("overview")
+            nav('')
         } else {
             setSelectedOption(optionName);
             setShowSubOptions(true);
             setOption(optionName);
+            console.log(optionName)
         }
     };
 

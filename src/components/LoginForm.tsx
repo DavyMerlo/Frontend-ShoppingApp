@@ -11,11 +11,14 @@ import {
     Button,
     Heading,
     Text,
-    useColorModeValue,
 } from '@chakra-ui/react'
 import {Form, useNavigate} from "react-router-dom";
+import {useAuthStore} from "../services/store";
 
 const LoginForm: React.FC = () => {
+
+    const isLoggedIn = useAuthStore((state) => state.login);
+
     const [formData, setFormData] =
         useState({
         email: '',
@@ -29,6 +32,9 @@ const LoginForm: React.FC = () => {
         try {
             await mutation.mutateAsync();
             navigate('/shop');
+            isLoggedIn();
+            console.log(isLoggedIn);
+
         } catch (error) {
             console.error('Login failed:', error);
         }

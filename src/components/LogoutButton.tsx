@@ -1,16 +1,15 @@
 import React from 'react';
-import useLogout from "../hooks/useLogOut";
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import storage from "../hooks/useStoredState";
 import {Flex} from "@chakra-ui/react";
-import {useAuthStore} from "../services/store";
+import {useAuthStore, useMenuItemStore} from "../services/store";
 
 const LogoutButton: React.FC = () => {
 
+    const setTitle = useMenuItemStore(state => state.setSideBarTitle);
     const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
     const logout = useAuthStore((state) => state.logout);
 
-    // const { mutate: logout } = useLogout();
     const handleLogout = async () => {
         const user = storage.remove('token');
         const token = storage.remove('user');
@@ -19,9 +18,11 @@ const LogoutButton: React.FC = () => {
         console.log(token);
         console.log(isLoggedIn);
         console.log("storage cleared");
+        setTitle("Categories")
     };
+
     return (
-        <NavLink to={"/"} onClick={handleLogout} >
+        <NavLink to={"/shop"} onClick={handleLogout} >
             <Flex cursor="pointer"
                   pt={3}
                   borderTopRadius={5}

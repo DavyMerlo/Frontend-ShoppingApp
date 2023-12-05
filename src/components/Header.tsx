@@ -1,8 +1,8 @@
-import {Box, Flex, Heading, HStack,Text, VStack} from "@chakra-ui/react";
+import {Box, Flex, HStack, VStack} from "@chakra-ui/react";
 import React from "react";
 import SearchInput from "./SearchInput";
 import LogoutButton from "./LogoutButton";
-import {useMenuItemStore} from "../services/store";
+import {useAuthStore} from "../services/store";
 import HomeButton from "./HomeButton";
 import ShopButton from "./ShopButton";
 import SellButton from "./SellButton";
@@ -12,11 +12,11 @@ import FavoritesButton from "./FavoritesButton";
 import CartButton from "./CartButton";
 import Title from "./Title";
 import SideBarTitle from "./SideBarTitle";
+import ProfileButton from "./ProfileButton";
+import RegisterButton from "./RegisterButton";
 
 const Header = () => {
-
-    const setTitle = useMenuItemStore(state => state.setSideBarTitle);
-
+    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
     return (
        <Flex>
@@ -54,8 +54,8 @@ const Header = () => {
                        <CartButton/>
                    </HStack>
                    <HStack justifyContent={"end"} pr={5} pt={5} spacing={5} height={"70px"} width={"100%"} bg={"#f2f2f2"}>
-                       <LoginButton/>
-                       <LogoutButton/>
+                       {isLoggedIn ? <ProfileButton/> : <LoginButton/>}
+                       {isLoggedIn ? <LogoutButton/> : <RegisterButton/>}
                    </HStack>
                </VStack>
            </HStack>

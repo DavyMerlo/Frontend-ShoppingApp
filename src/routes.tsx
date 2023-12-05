@@ -48,7 +48,7 @@ const router = createBrowserRouter([
                     element: <ProfilePage/> ,
                     children: [
                         {
-                            path:'overview',
+                            index:true,
                             element: <ProfileBox/> ,
                         },
                         {
@@ -57,10 +57,6 @@ const router = createBrowserRouter([
                         },
                     ]
                 },
-                // {
-                //     path:'password' ,
-                //     element: <PasswordPage/>
-                // },
                 {
                     path:'logout' ,
                     element: <LogOutPage/>

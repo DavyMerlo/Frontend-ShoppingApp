@@ -1,17 +1,8 @@
-import {useAuthStore, useMenuItemStore} from "../services/store";
 import {NavLink} from "react-router-dom";
 import {Flex} from "@chakra-ui/react";
 import React from "react";
-import storage from "../hooks/useStoredState";
-import User from "../entities/User";
 
-const LoginButton = () => {
-
-    const setTitle = useMenuItemStore(state => state.setSideBarTitle);
-    const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-    const user = storage.get<User>("user");
-    console.log(isLoggedIn);
-
+const RegisterButton = () => {
     return (
         <>
             <NavLink to={"login"}>
@@ -24,11 +15,11 @@ const LoginButton = () => {
                       bg={"#232f3e"}
                       width={"150px"}
                       _hover={{background: "#ff9900",
-                          color: "#000000"}}>Login
+                          color: "#000000"}}>Register
                 </Flex>
             </NavLink>
         </>
     )
 }
 
-export default LoginButton;
+export default RegisterButton;

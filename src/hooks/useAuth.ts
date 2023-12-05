@@ -15,6 +15,8 @@ const useAuth = (request: LoginRequest) => useMutation({
         const user = response.result.user;
         storage.set("user", user);
         storage.set("token", accessToken);
+        console.log(user);
+        console.log(accessToken);
     }),
     onError: ((error : ErrorResponse | any) => {
         console.log(error.response?.data.status);

@@ -8,6 +8,10 @@ import ProfilePage from "./pages/ProfilePage";
 import LogOutPage from "./pages/LogOutPage";
 import PasswordBox from "./components/PasswordBox";
 import ProfileBox from "./components/ProfileBox";
+import HomePage from "./pages/HomePage";
+import CartPage from "./pages/CartPage";
+import ContactPage from "./pages/ContactPage";
+import SellPage from "./pages/SellPage";
 
 const router = createBrowserRouter([
     {
@@ -21,11 +25,24 @@ const router = createBrowserRouter([
             children: [
                 {
                     index:true ,
-                    element: <ShopPage/>
+                    element: <HomePage/>
                 },
                 {
                     path:'shop' ,
-                    element: <ShopPage/> },
+                    element: <ShopPage/>
+                },
+                {
+                    path:'cart' ,
+                    element: <CartPage/>
+                },
+                {
+                    path:'sell' ,
+                    element: <SellPage/>
+                },
+                {
+                    path:'contact' ,
+                    element: <ContactPage/>
+                },
                 {
                     path:'profile' ,
                     element: <ProfilePage/> ,

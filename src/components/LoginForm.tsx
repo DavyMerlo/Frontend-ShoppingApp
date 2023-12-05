@@ -14,7 +14,6 @@ import {
     useColorModeValue,
 } from '@chakra-ui/react'
 import {Form, useNavigate} from "react-router-dom";
-import {useAuthStore} from "../services/store";
 
 const LoginForm: React.FC = () => {
     const [formData, setFormData] =
@@ -25,13 +24,10 @@ const LoginForm: React.FC = () => {
     const mutation = useAuth(formData);
     const navigate = useNavigate();
 
-    const login = useAuthStore((state) => state.login);
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await mutation.mutateAsync();
-            login();
             navigate('/shop');
         } catch (error) {
             console.error('Login failed:', error);
@@ -45,12 +41,12 @@ const LoginForm: React.FC = () => {
         minH={'100vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
+        color={"#f2f2f2"}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
 
             <Box
                 rounded={'lg'}
-                bg={useColorModeValue('white', 'gray.700')}
+                bg={"#232f3e"}
                 boxShadow={'lg'}
                 p={10}>
                 <Stack spacing={4}>
@@ -59,7 +55,7 @@ const LoginForm: React.FC = () => {
                     </Stack>
                     <Form onSubmit={handleSubmit}>
                         <FormControl id="email">
-                            <FormLabel>Email-address</FormLabel>
+                            <FormLabel >Email-address</FormLabel>
                             <Input type="email" onChange={handleInputChangeEmail} />
                         </FormControl>
                         <FormControl id="password">
@@ -74,15 +70,10 @@ const LoginForm: React.FC = () => {
                                 <Checkbox>Remember me</Checkbox>
                                 <Text color={'blue.400'}>Forgot password?</Text>
                             </Stack>
-                            <Button
-                                type='submit'
-                                bg={'blue.400'}
-                                color={'white'}
-                                _hover={{
-                                    bg: 'blue.500',
-                                }}>
-                                Login
-                            </Button>
+                            <Button type='submit' bg={"#000000"} color={"#f2f2f2"}  _hover={{
+                                background: "#ff9900",
+                                color: "#000000",
+                            }} >Login</Button>
                         </Stack>
                     </Form>
                 </Stack>

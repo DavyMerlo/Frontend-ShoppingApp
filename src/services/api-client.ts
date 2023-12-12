@@ -26,6 +26,13 @@ class ApiClient<T> {
         this.endPoint = endpoint;
     }
 
+    patchLogin = async (data: T): Promise<T> => {
+        return  axiosInstance
+            .patch<T>(this.endPoint, data)
+            .then(res => res.data)}
+    ;
+
+
     login = async (data: T): Promise<T> => {
             return  axiosInstance
             .post<T>('/auth/authenticate', data)

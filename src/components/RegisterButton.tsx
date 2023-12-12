@@ -5,7 +5,7 @@ import React from "react";
 const RegisterButton = () => {
     return (
         <>
-            <NavLink to={"login"}>
+            <NavLink to={"register"}>
                 <Flex cursor="pointer"
                       pt={3}
                       borderTopRadius={5}

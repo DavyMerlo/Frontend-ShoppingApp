@@ -1,69 +1,145 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     Box,
     Button,
     Card,
     CardBody,
     CardHeader,
-    FormControl,
+    FormControl, FormErrorMessage,
     FormLabel,
     Heading,
     Input,
     Stack,
 } from "@chakra-ui/react";
-import {Form} from "react-router-dom";
+import {Form, useNavigate} from "react-router-dom";
+import useChangePassword from "../hooks/useChangePassword";
+import storage from "../hooks/useStoredState";
+import User from "../entities/User";
+import {useFormStore} from "../services/store";
 
 
 const PasswordBox: React.FC = () => {
 
-    const [formData, setFormData] =
-        useState({
-            currentPassword: '',
-            newPassword: '',
-            confirmationPassword: ''
-        })
+    const { formData, fieldErrors, setFormData, setFieldError } = useFormStore();
+    const user = storage.get<User>("user");
+    const mutation = useChangePassword(formData, user.userName);
+    const navigate = useNavigate();
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log('Form submitted with data:', formData);
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            console.log(formData);
+            await mutation.mutateAsync();
+            navigate('/shop');
+        } catch (error : any) {
+
+            if(error?.response?.data){
+                console.log(error.response.data.error);
+                const validationError = error.response.data.error;
+                setFieldError({field: 'currentPassword', message: validationError});
+            }
+            if (error?.response && error?.response?.data && error?.response?.data?.errors) {
+                setFieldError({field: 'currentPassword', message: ""});
+                const errors = error?.response?.data?.errors;
+                errors.forEach((error: any) => {
+                    setFieldError({ field: error?.field, message: error?.message });
+                    console.log(fieldErrors)
+                });
+            } else if (error.errors) {
+                setFieldError({ field: 'generic', message: error?.errors?.message });
+            }
+        }
     };
 
-    const handleInputChangeCurrentPassword = (e: any) =>  setFormData({...formData, currentPassword: e.target.value})
-    const handleInputChangeNewPassword = (e: any) =>  setFormData({...formData, newPassword: e.target.value});
-    const handleInputChangeConfirmPassword = (e: any) =>  setFormData({...formData, confirmationPassword: e.target.value});
+    const handleInputChange = (field: keyof typeof formData, value: string) => {
+        setFormData({ ...formData, [field]: value });
+        setFieldError({field, message:''});
+    };
 
     return (
         <Box bg={"#232f3e"} borderBottomRadius={10}>
-            <Card bg={"#232f3e"} align='start'>
+            <Card bg={"#232f3e"} align='center'>
                 <CardHeader>
-                    <Heading color={"#f2f2f2"} size='md'>Change password</Heading>
+                    <Heading mt={5} color={"#f2f2f2"} size='md'>Change password</Heading>
                 </CardHeader>
-                <CardBody width={"100%"} height={"100%"}>
-                    <Stack justifyContent={"start"} width={"100%"}  height={"100%"}>
+                <CardBody bg={"#232f3e"} >
+                    <Stack justifyContent={"center"} width={"500px"}  height={"100%"}>
                         <Form onSubmit={handleSubmit}>
-                            <FormControl id="currentPassword">
-                                <FormLabel color={"#f2f2f2"}>Current Password</FormLabel>
+                            <FormControl
+                                id="currentPassword"
+                                isInvalid={fieldErrors.currentPassword !== ''}>
+                                <FormLabel
+                                    mt={5}
+                                    mb={3}
+                                    color={"#f2f2f2"}
+                                    fontWeight='bold'>Current Password</FormLabel>
                                 <Input
-                                    onChange={handleInputChangeCurrentPassword}
-                                    type="text"/>
+                                    bg={"#000000"}
+                                    color={"#f2f2f2"}
+                                    fontSize={18}
+                                    onChange={(e) => handleInputChange('currentPassword', e.target.value)}
+                                    type="text"
+                                    _focus = {{
+                                        background: "#ff9900",
+                                        color: "#000000",
+                                    }}
+                                />
+                                <FormErrorMessage>{fieldErrors.currentPassword}</FormErrorMessage>
                             </FormControl>
-                            <FormControl id="newPassword">
-                                <FormLabel color={"#f2f2f2"}>New Password</FormLabel>
+                            <FormControl
+                                id="newPassword"
+                                isInvalid={fieldErrors.newPassword !== ''}>
+                                <FormLabel
+                                    mt={5}
+                                    mb={3}
+                                    color={"#f2f2f2"}
+                                    fontWeight='bold'>New Password</FormLabel>
                                 <Input
-                                    onChange={handleInputChangeNewPassword}
-                                    type="text" />
+                                    bg={"#000000"}
+                                    color={"#f2f2f2"}
+                                    fontSize={18}
+                                    onChange={(e) => handleInputChange('newPassword', e.target.value)}
+                                    type="text"
+                                    _focus = {{
+                                        background: "#ff9900",
+                                        color: "#000000",
+                                    }}
+                                />
+                                <FormErrorMessage>{fieldErrors.newPassword}</FormErrorMessage>
                             </FormControl>
-                            <FormControl id="confirmationPassword">
-                                <FormLabel color={"#f2f2f2"}>Confirm password</FormLabel>
+                            <FormControl
+                                id="confirmationPassword"
+                                isInvalid={fieldErrors.confirmationPassword !== ''}>
+                                <FormLabel
+                                    mt={5}
+                                    mb={3}
+                                    color={"#f2f2f2"}
+                                    fontWeight='bold'>Confirm password</FormLabel>
                                 <Input
-                                    onChange={handleInputChangeConfirmPassword}
-                                    type="text" />
+                                    bg={"#000000"}
+                                    color={"#f2f2f2"}
+                                    fontSize={18}
+                                    onChange={(e) => handleInputChange('confirmationPassword', e.target.value)}
+                                    type="text"
+                                    _focus = {{
+                                        background: "#ff9900",
+                                        color: "#000000",
+                                    }}
+                                />
+                                <FormErrorMessage>{fieldErrors.confirmationPassword}</FormErrorMessage>
                             </FormControl>
-                            <Stack pt={5}>
-                                <Button type="submit" width={"250px"} bg={"#000000"} color={"#f2f2f2"}  _hover={{
+                            <Stack pt={5} align={"center"}>
+                                <Button
+                                    mt={5}
+                                    type="submit"
+                                    width={"250px"}
+                                    bg={"#000000"}
+                                    color={"#f2f2f2"}
+                                    _hover={{
                                     background: "#ff9900",
                                     color: "#000000",
-                                }} colorScheme='blue'>Submit</Button>
+                                }}
+                                    colorScheme='blue'>Submit</Button>
                             </Stack>
                         </Form>
                     </Stack>

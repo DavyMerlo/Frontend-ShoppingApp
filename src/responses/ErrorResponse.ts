@@ -1,5 +1,7 @@
+import User from "../entities/User";
 
-export default interface ErrorResponse {
-    message: string;
-    status: number;
+export interface ErrorResponse {
+  errors: { field: string; message: string }[];
+  message: string;
+  status: number;
 }

@@ -54,3 +54,40 @@ export const useAuthStore = create<AuthState>((set) => ({
     login: () => set({ isLoggedIn: true }),
     logout: () => set({ isLoggedIn: false }),
 }));
+
+interface ErrorResponse {
+    field: keyof FormState['fieldErrors'];
+    message: string;
+}
+
+interface FormState {
+    formData: {
+        currentPassword: string;
+        newPassword: string;
+        confirmationPassword: string;
+    };
+    fieldErrors: {
+        currentPassword: string;
+        newPassword: string;
+        confirmationPassword: string;
+        generic: string;
+    };
+    setFormData: (data: Partial<FormState['formData']>) => void;
+    setFieldError: (error: ErrorResponse) => void;
+}
+
+export const useFormStore = create<FormState>((set) => ({
+    formData: {
+        currentPassword: '',
+        newPassword: '',
+        confirmationPassword: ''
+    },
+    fieldErrors: {
+        currentPassword: '',
+        newPassword: '',
+        confirmationPassword: '',
+        generic: ''
+    },
+    setFormData: (data) => set((state) => ({ formData: { ...state.formData, ...data } })),
+    setFieldError: ({ field, message }) => set((state) => ({ fieldErrors: { ...state.fieldErrors, [field]: message } }))
+}));

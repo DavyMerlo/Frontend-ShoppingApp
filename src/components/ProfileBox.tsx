@@ -5,10 +5,9 @@ import {
     Card,
     CardBody,
     CardFooter,
-    CardHeader, Flex,
+    CardHeader,
     Heading,
     HStack,
-    Stack,
     Text,
 } from "@chakra-ui/react";
 import storage from "../hooks/useStoredState";
@@ -20,7 +19,6 @@ import {useMenuItemStore} from "../services/store";
 const ProfileBox = () => {
 
     const user = storage.get<User>("user");
-
     const { data, isLoading, isError } = useLoggedInUser(user.id.toString());
 
     const option = useMenuItemStore(state => state.option);

@@ -26,9 +26,21 @@ class ApiClient<T> {
         this.endPoint = endpoint;
     }
 
+    patchLogin = async (data: T): Promise<T> => {
+        return  axiosInstance
+            .patch<T>(this.endPoint, data)
+            .then(res => res.data)}
+    ;
+
     login = async (data: T): Promise<T> => {
             return  axiosInstance
             .post<T>('/auth/authenticate', data)
+            .then(res => res.data)
+    };
+
+    register = async (data: T): Promise<T> => {
+        return  axiosInstance
+            .post<T>('/auth/register', data)
             .then(res => res.data)
     };
 
@@ -46,6 +58,13 @@ class ApiClient<T> {
     getById = async (id:any, extraPath:string | null): Promise<T> => {
         return axiosInstance
             .get<T>(this.endPoint + `/${id}/${extraPath}`)
+            .then(res => res.data)
+    };
+
+    //Temporary
+    getBy = async (something:any): Promise<T> => {
+        return axiosInstance
+            .get<T>(this.endPoint + `/${something}`)
             .then(res => res.data)
     };
 }

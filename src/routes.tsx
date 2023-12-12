@@ -12,11 +12,21 @@ import HomePage from "./pages/HomePage";
 import CartPage from "./pages/CartPage";
 import ContactPage from "./pages/ContactPage";
 import SellPage from "./pages/SellPage";
+import RegisterPage from "./pages/RegisterPage";
+import ConfirmationPage from "./pages/ConfirmationPage";
 
 const router = createBrowserRouter([
     {
         path: 'login',
         element: <AuthPage/>,
+    },
+    {
+        path: 'register',
+        element: <RegisterPage/>,
+    },
+    {
+        path: 'confirmation',
+        element: <ConfirmationPage/>,
     },
     {
         path: '/',

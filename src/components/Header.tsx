@@ -14,8 +14,9 @@ import Title from "./Title";
 import SideBarTitle from "./SideBarTitle";
 import ProfileButton from "./ProfileButton";
 import RegisterButton from "./RegisterButton";
+import {useNavigate} from "react-router-dom";
 
-const Header = () => {
+const Header: React.FC = () => {
     const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
     return (

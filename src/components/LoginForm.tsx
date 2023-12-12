@@ -60,11 +60,11 @@ const LoginForm: React.FC = () => {
                         <Heading fontSize={'2xl'}>Login with your E-shop account</Heading>
                     </Stack>
                     <Form onSubmit={handleSubmit}>
-                        <FormControl id="email">
+                        <FormControl isRequired id="email">
                             <FormLabel >Email-address</FormLabel>
                             <Input type="email" onChange={handleInputChangeEmail} />
                         </FormControl>
-                        <FormControl id="password">
+                        <FormControl isRequired id="password">
                             <FormLabel>Password</FormLabel>
                             <Input type="password" onChange={handleInputChangePassword} />
                         </FormControl>

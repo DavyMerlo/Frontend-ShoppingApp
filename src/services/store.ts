@@ -54,3 +54,76 @@ export const useAuthStore = create<AuthState>((set) => ({
     login: () => set({ isLoggedIn: true }),
     logout: () => set({ isLoggedIn: false }),
 }));
+
+interface ErrorResponse {
+    field: keyof FormState['fieldErrors'];
+    message: string;
+}
+
+interface FormState {
+    formData: {
+        currentPassword: string;
+        newPassword: string;
+        confirmationPassword: string;
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        street: string,
+        houseNumber: string,
+        busNumber: string,
+        postalCode: string,
+        localAuthority: string
+    };
+    fieldErrors: {
+        currentPassword: string;
+        newPassword: string;
+        confirmationPassword: string;
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+        street: string,
+        houseNumber: string,
+        busNumber: string,
+        postalCode: string,
+        localAuthority: string,
+        generic: string;
+    };
+    setFormData: (data: Partial<FormState['formData']>) => void;
+    setFieldError: (error: ErrorResponse) => void;
+}
+
+export const useFormStore = create<FormState>((set) => ({
+    formData: {
+        currentPassword: '',
+        newPassword: '',
+        confirmationPassword: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        street: '',
+        houseNumber: '',
+        busNumber: '',
+        postalCode: '',
+        localAuthority: ''
+    },
+    fieldErrors: {
+        currentPassword: '',
+        newPassword: '',
+        confirmationPassword: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        street: '',
+        houseNumber: '',
+        busNumber: '',
+        postalCode: '',
+        localAuthority: '',
+        generic: ''
+    },
+    setFormData: (data) => set((state) => ({ formData: { ...state.formData, ...data } })),
+    setFieldError: ({ field, message }) => set((state) => ({ fieldErrors: { ...state.fieldErrors, [field]: message } }))
+}));

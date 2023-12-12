@@ -13,7 +13,7 @@ const ProductCard = ({ product }: Props) => {
         <Card bg={"#232f3e"}>
             <CardHeader height={"240px"}>
                 <HStack justifyContent={"start"} fontSize='2xm'>
-                    <Text color={"#f2f2f2"} >{product.category.subCategory.name}</Text>
+                    <Text color={"#f2f2f2"} >{product.category?.subCategory?.name}</Text>
                 </HStack>
                 <HStack pt={2} justifyContent="center">
                     <Image background={"green"} style={{ width: 120, height: 180 }} src={product.imageUrl} />

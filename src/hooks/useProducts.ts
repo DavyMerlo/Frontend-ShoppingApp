@@ -8,7 +8,6 @@ const apiClient = new ApiClient<ProductResponse>("/products");
 
 const useProducts = () => {
     const productQuery = useProductQueryStore(p => p.productQuery);
-
     return useInfiniteQuery<ProductResponse, Error>({
         queryKey: ["products", productQuery],
         queryFn: ({pageParam = 0}) =>

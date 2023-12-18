@@ -6,7 +6,7 @@ const FavoritesButton = () => {
 
     return (
         <>
-            <NavLink to={"/t"}>
+            <NavLink to={"/"}>
                 <Flex cursor="pointer"
                       borderRadius={5}
                       justifyContent={"center"}
